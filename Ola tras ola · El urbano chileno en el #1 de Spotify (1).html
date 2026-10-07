@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ola tras ola · El urbano chileno en el #1 de Spotify</title>
+<meta name="description" content="Proyecto crossmedia de periodismo de datos: 210 semanas del ranking de Spotify Chile (2022–2026) y el relevo de artistas urbanos que llegó al primer lugar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F4FC; --surface:#FFFFFF; --surface-2:#E9ECF9; --ink:#1A1646; --muted:#5B5882; --line:#D8DCF1;
+  --btn:#3A2DF0; --btn-ink:#FFFFFF; --accent:#3A2DF0;
+  --c22:#3A2DF0; --c23:#E0338F; --c24:#0E9AA7; --c25:#F2A20C; --c26:#8A8DB0;
+  --shadow:rgba(40,30,140,.22);
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+--grain-soft:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141230; --surface:#1D1B42; --surface-2:#262358; --ink:#EEEDFF; --muted:#A9A7D2; --line:#34316A;
+    --btn:#5B4DFF; --accent:#9A91FF;
+    --c22:#9A91FF; --c23:#FF6BB0; --c24:#39C6D3; --c25:#FFC247; --c26:#A0A3C8; --shadow:rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141230; --surface:#1D1B42; --surface-2:#262358; --ink:#EEEDFF; --muted:#A9A7D2; --line:#34316A;
+  --btn:#5B4DFF; --accent:#9A91FF;
+  --c22:#9A91FF; --c23:#FF6BB0; --c24:#39C6D3; --c25:#FFC247; --c26:#A0A3C8; --shadow:rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px);scroll-behavior:smooth}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;background-image:var(--grain);opacity:.05;pointer-events:none;z-index:0;mix-blend-mode:multiply}
+main,header,footer{position:relative;z-index:1}
+main{overflow-x:clip}
+a{color:inherit}
+img,svg{max-width:100%}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Botones con textura ---------- */
+.btn,.chip,.tab{
+  font:inherit;font-weight:600;cursor:pointer;border:0;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  transition:transform .12s ease, box-shadow .12s ease, filter .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn{
+  padding:.85rem 1.5rem;border-radius:14px;color:var(--btn-ink);
+  background-color:var(--btn);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0) 55%),var(--grain);
+  background-blend-mode:normal,soft-light;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(0,0,0,.20),0 10px 20px -10px var(--shadow);
+}
+.btn:hover{transform:translateY(-2px);filter:saturate(1.1)}
+.btn:active{transform:translateY(2px);box-shadow:inset 0 2px 0 rgba(0,0,0,.18),inset 0 -1px 0 rgba(0,0,0,.1)}
+.btn.ghost{
+  color:var(--ink);background-color:var(--surface);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0) 60%),var(--grain-soft);
+  background-blend-mode:normal,normal;
+  box-shadow:inset 0 0 0 1.5px var(--line),inset 0 -4px 0 rgba(26,22,70,.10),0 8px 16px -12px var(--shadow);
+}
+:root[data-theme="dark"] .btn.ghost{background-image:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),var(--grain)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.ghost{background-image:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),var(--grain)}}
+.chip{
+  padding:.45rem 1rem;border-radius:999px;color:var(--ink);font-size:.95rem;background-color:var(--surface);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0) 60%),var(--grain-soft);background-blend-mode:normal,normal;
+  box-shadow:inset 0 0 0 1.5px var(--line),inset 0 -3px 0 rgba(26,22,70,.08);
+}
+.chip:hover{transform:translateY(-1px)}
+.chip[aria-pressed="true"]{
+  color:var(--btn-ink);background-color:var(--btn);
+  background-image:linear-gradient(180deg,rgba(0,0,0,.18),rgba(255,255,255,.06) 70%),var(--grain);background-blend-mode:normal,soft-light;
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.35),inset 0 -1px 0 rgba(255,255,255,.25);transform:translateY(1px);
+}
+
+/* ---------- Navegación ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px 8px 20px;border-radius:18px;
+  background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 0 0 1.5px var(--line),0 12px 24px -18px var(--shadow)}
+.brand{font-weight:800;letter-spacing:-.02em;text-decoration:none;font-size:1.1rem;white-space:nowrap}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a.link{display:block;padding:.45rem .95rem;border-radius:12px;text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted);transition:background-color .2s,color .2s}
+.nav a.link:hover{color:var(--ink);background:var(--surface-2)}
+.nav a.link[aria-current="true"]{color:var(--btn-ink);background-color:var(--btn);background-image:var(--grain);background-blend-mode:soft-light;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+
+/* ---------- Hero ---------- */
+.hero{padding:clamp(36px,7vw,84px) 0 28px}
+.hero h1{margin:0;font-size:clamp(3.4rem,11.5vw,9.4rem);line-height:.9;letter-spacing:-.045em;font-weight:760;max-width:11ch}
+.hero .sub{margin:22px 0 0;font-size:clamp(1.15rem,2.2vw,1.55rem);font-weight:500;max-width:38ch;letter-spacing:-.01em}
+.hero .lead{margin:14px 0 0;max-width:56ch;color:var(--muted);font-family:var(--serif);font-size:1.2rem;line-height:1.55}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+.strip-card{margin-top:clamp(28px,5vw,56px);padding:clamp(16px,3vw,28px);border-radius:26px;background:var(--surface);
+  box-shadow:inset 0 0 0 1.5px var(--line),0 30px 50px -36px var(--shadow)}
+.readout{display:grid;gap:4px 24px;grid-template-columns:1fr auto;align-items:end;min-height:112px;padding-bottom:18px}
+.readout .when{font-size:.95rem;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border-radius:4px;background:var(--dc,var(--accent));display:inline-block;flex:none}
+.readout .song{font-size:clamp(1.6rem,4vw,2.7rem);font-weight:720;letter-spacing:-.03em;line-height:1.05;grid-column:1}
+.readout .who{color:var(--muted);font-family:var(--serif);font-size:1.1rem;grid-column:1}
+.readout .num{grid-column:2;grid-row:1 / span 3;text-align:right;align-self:end}
+.readout .num b{display:block;font-size:clamp(1.8rem,4.5vw,3.2rem);font-weight:760;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.readout .num span{font-size:.9rem;color:var(--muted)}
+.tag{display:inline-block;margin-top:6px;padding:.1rem .6rem;border-radius:8px;background:var(--surface-2);font-size:.82rem;font-weight:600;color:var(--muted)}
+.strip{position:relative;height:clamp(170px,26vw,250px);touch-action:pan-y;cursor:crosshair;border-radius:10px}
+.strip .grid{position:absolute;inset:0;pointer-events:none}
+.strip .grid i{position:absolute;left:0;right:0;border-top:1px dashed var(--line)}
+.strip .grid em{position:absolute;right:0;transform:translateY(-120%);font-style:normal;font-size:.75rem;color:var(--muted);background:var(--surface);padding-left:4px}
+.bars{position:absolute;inset:0;display:flex;align-items:flex-end;gap:1.5px}
+.bar{flex:1 1 0;min-width:0;background:var(--bc);border-radius:2px 2px 0 0;transform-origin:bottom;animation:rise .8s cubic-bezier(.2,.9,.25,1) both;animation-delay:calc(var(--i) * 7ms + 150ms);opacity:.88;transition:opacity .15s}
+.strip:hover .bar,.strip:focus-visible .bar{opacity:.38}
+.strip .bar.on{opacity:1;outline:2px solid var(--ink);outline-offset:1px;position:relative;z-index:2}
+@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.years{position:relative;height:30px;margin-top:8px}
+.years span{position:absolute;top:0;font-weight:700;font-size:.9rem;padding-left:6px;border-left:2px solid var(--yc);line-height:1.2}
+.years span small{display:block;font-weight:500;color:var(--muted);font-size:.75rem}
+.hint{margin:14px 0 0;color:var(--muted);font-size:.92rem}
+
+/* ---------- Marquee ---------- */
+.ticker{margin:clamp(34px,6vw,70px) 0 0;overflow:hidden;padding:14px 0;background-color:var(--ink);color:var(--paper);
+  background-image:var(--grain);background-blend-mode:soft-light;transform:rotate(-1.2deg);box-shadow:0 18px 30px -22px var(--shadow)}
+.ticker .track{display:flex;gap:34px;width:max-content;animation:slide 150s linear infinite}
+.ticker:hover .track{animation-play-state:paused}
+.ticker span{display:inline-flex;align-items:center;gap:10px;font-weight:650;font-size:1.05rem;white-space:nowrap}
+.ticker span i{width:10px;height:10px;border-radius:3px;background:var(--tc);display:inline-block}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- Secciones ---------- */
+section{padding:clamp(56px,9vw,112px) 0 0}
+.sec-head{max-width:760px;margin-bottom:34px}
+.sec-head h2{margin:0;font-size:clamp(2.1rem,5vw,3.6rem);line-height:1;letter-spacing:-.035em;font-weight:720}
+.sec-head p{margin:14px 0 0;color:var(--muted);font-family:var(--serif);font-size:1.18rem;max-width:60ch}
+
+.datos{display:grid;gap:34px;grid-template-columns:1fr}
+@media (min-width:960px){.datos{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}}
+.findings{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.findings li{padding-left:22px;position:relative;font-family:var(--serif);font-size:1.15rem;line-height:1.5}
+.findings li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:3px;background:var(--fc,var(--accent))}
+.findings b{font-family:var(--display);font-weight:700;letter-spacing:-.01em}
+.card{background:var(--surface);border-radius:26px;padding:clamp(18px,3vw,30px);box-shadow:inset 0 0 0 1.5px var(--line),0 30px 50px -40px var(--shadow)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.controls.sep{margin-bottom:20px}
+.rank{list-style:none;margin:0;padding:0;display:grid;gap:11px;font-family:var(--display);font-size:1rem;line-height:1.4}
+.rank li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:center}
+.rank .nm{font-weight:600;font-size:.98rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank .ct{font-variant-numeric:tabular-nums;font-weight:700;font-size:.95rem}
+.rank .tr{grid-column:1 / -1;height:12px;border-radius:7px;background:var(--surface-2);overflow:hidden}
+.rank .fl{display:block;height:100%;width:0;border-radius:7px;background-color:var(--fc,var(--btn));background-image:var(--grain);background-blend-mode:soft-light;transition:width .8s cubic-bezier(.2,.9,.25,1)}
+.yearfacts{margin:24px 0 0;padding-top:18px;border-top:1.5px dashed var(--line);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 22px}
+.yearfacts div dt{font-size:.82rem;color:var(--muted);font-weight:500}
+.yearfacts div dd{margin:2px 0 0;font-weight:700;font-size:1.15rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.note{font-size:.88rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
+
+/* ---------- Olas ---------- */
+.waves{position:relative;display:grid;gap:26px;padding-left:34px}
+.waves::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--line)}
+.waves .progress{position:absolute;left:11px;top:6px;width:3px;border-radius:2px;background:var(--accent);height:0;transition:height .3s}
+.wave{position:relative;display:grid;gap:6px 36px;grid-template-columns:1fr;padding:22px 24px;border-radius:22px;background:var(--surface);box-shadow:inset 0 0 0 1.5px var(--line)}
+.wave::before{content:"";position:absolute;left:-30px;top:30px;width:17px;height:17px;border-radius:6px;background:var(--wc);box-shadow:0 0 0 5px var(--paper)}
+.wave h3{margin:0;font-size:1.45rem;letter-spacing:-.025em;line-height:1.15}
+.wave h3 small{display:block;font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:0;margin-bottom:2px}
+.wave p{margin:0;font-family:var(--serif);font-size:1.1rem}
+.wave .nums{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.wave .nums li{padding:.2rem .7rem;border-radius:9px;background:var(--surface-2);font-size:.88rem;font-weight:600}
+@media (min-width:860px){.wave{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start}.wave h3{grid-row:1 / span 2}.wave .nums{grid-column:2}}
+
+/* ---------- Piezas ---------- */
+.path{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));position:relative;margin-bottom:26px}
+.tab{flex-direction:column;align-items:flex-start;justify-content:flex-start;text-align:left;gap:4px;padding:16px 18px;border-radius:20px;color:var(--ink);background-color:var(--surface);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 60%),var(--grain-soft);background-blend-mode:normal,normal;
+  box-shadow:inset 0 0 0 1.5px var(--line),inset 0 -5px 0 rgba(26,22,70,.07)}
+.tab b{font-size:1.15rem;letter-spacing:-.02em}
+.tab span{font-weight:500;font-size:.88rem;color:var(--muted)}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected="true"]{color:var(--btn-ink);background-color:var(--btn);background-image:linear-gradient(180deg,rgba(0,0,0,.14),rgba(255,255,255,.05) 70%),var(--grain);background-blend-mode:normal,soft-light;
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.32);transform:translateY(1px)}
+.tab[aria-selected="true"] span{color:rgba(255,255,255,.82)}
+.panel{display:none}
+.panel.on{display:block;animation:panelin .45s cubic-bezier(.2,.9,.25,1)}
+@keyframes panelin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.piece{display:grid;gap:30px;grid-template-columns:1fr}
+@media (min-width:960px){.piece{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:48px}}
+.meta{display:grid;gap:14px;align-content:start;align-self:start}
+.meta dl{margin:0;display:grid;gap:12px}
+.meta dt{font-size:.82rem;color:var(--muted);font-weight:500}
+.meta dd{margin:0;font-weight:650}
+.meta .btn{justify-self:start}
+.read{font-family:var(--serif);font-size:1.22rem;line-height:1.65;max-width:62ch}
+.read h3{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.08;letter-spacing:-.03em;margin:0 0 6px}
+.read .note{margin-top:14px}
+.read .by{font-family:var(--display);font-size:.95rem;color:var(--muted);margin:0 0 22px}
+.read p{margin:0 0 1.1em}
+.read h4{font-family:var(--display);font-size:1.15rem;letter-spacing:-.015em;margin:1.6em 0 .4em}
+.read blockquote{margin:1.6em 0;padding:4px 0 4px 22px;border-left:5px solid var(--accent);font-size:1.45rem;line-height:1.4;font-style:italic}
+.read details{margin-top:8px}
+.read summary{cursor:pointer;font-family:var(--display);font-weight:650;margin-bottom:14px}
+.mapbox{border-radius:20px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--line);background:var(--surface-2)}
+.mapbox iframe{display:block;width:100%;height:min(66vh,560px);min-height:380px;border:0}
+.chartcap{font-family:var(--display);font-weight:650;font-size:1rem;margin:22px 0 12px}
+.rank.big .nm{white-space:normal}
+.rank .sm{display:block;font-weight:500;font-size:.82rem;color:var(--muted)}
+
+/* ---------- Fuentes ---------- */
+.src{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:900px){.src{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.src h3{margin:0 0 10px;font-size:1.2rem;letter-spacing:-.02em}
+.src ul{margin:0;padding-left:1.1rem;font-family:var(--serif);font-size:1.05rem;display:grid;gap:8px}
+.empty{border:2px dashed var(--line);border-radius:18px;padding:16px;color:var(--muted);font-size:.95rem}
+footer{margin-top:clamp(64px,10vw,120px);padding:34px 0 46px;border-top:1.5px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between;color:var(--muted);font-size:.95rem}
+footer b{color:var(--ink)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .bar{animation:none}
+  .ticker .track{animation:none}
+  .panel.on{animation:none}
+  .rank .fl{transition:none}
+  .btn,.chip,.tab{transition:none}
+}
+@media (max-width:620px){
+  .readout{grid-template-columns:1fr}
+  .readout .num{grid-column:1;grid-row:auto;text-align:left;margin-top:8px}
+  .brand{font-size:1rem}
+}
+
+/* ===== v2: botones 3D ===== */
+:root{--edge:color-mix(in srgb,var(--btn) 58%,#000);--edge-soft:color-mix(in srgb,var(--line) 80%,var(--ink) 20%)}
+.btn{border:1px solid color-mix(in srgb,var(--btn) 70%,#fff);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.14),0 5px 0 var(--edge),0 12px 18px -6px var(--shadow);
+  transition:transform .09s ease,box-shadow .09s ease,filter .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.14),0 7px 0 var(--edge),0 16px 22px -6px var(--shadow)}
+.btn:active{transform:translateY(5px);box-shadow:inset 0 2px 5px rgba(0,0,0,.3),0 0 0 var(--edge),0 2px 4px -1px var(--shadow)}
+.btn.ghost{border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(26,22,70,.06),0 5px 0 var(--edge-soft),0 12px 16px -8px var(--shadow)}
+.btn.ghost:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(26,22,70,.06),0 7px 0 var(--edge-soft),0 16px 20px -8px var(--shadow)}
+.btn.ghost:active{box-shadow:inset 0 2px 5px rgba(26,22,70,.2),0 0 0 var(--edge-soft),0 2px 4px -1px var(--shadow)}
+.chip{box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1.5px var(--line),0 3px 0 var(--edge-soft),0 8px 10px -6px var(--shadow);transition:transform .09s ease,box-shadow .09s ease}
+.chip:hover{transform:translateY(-1px)}
+.chip:active{transform:translateY(3px);box-shadow:inset 0 0 0 1.5px var(--line),0 0 0 var(--edge-soft)}
+.chip[aria-pressed="true"]{transform:translateY(3px);box-shadow:inset 0 3px 6px rgba(0,0,0,.35),inset 0 -1px 0 rgba(255,255,255,.25),0 0 0 var(--edge)}
+.tab{box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1.5px var(--line),0 5px 0 var(--edge-soft),0 12px 16px -10px var(--shadow);transition:transform .09s ease,box-shadow .09s ease}
+.tab:hover{transform:translateY(-2px)}
+.tab:active{transform:translateY(5px);box-shadow:inset 0 0 0 1.5px var(--line),0 0 0 var(--edge-soft)}
+.tab[aria-selected="true"]{transform:translateY(5px);box-shadow:inset 0 3px 7px rgba(0,0,0,.35),0 0 0 var(--edge)}
+.nav a.link{transition:transform .09s ease,box-shadow .09s ease,background-color .2s,color .2s}
+.nav a.link:hover{transform:translateY(-1px);box-shadow:0 3px 0 var(--edge-soft)}
+.nav a.link:active{transform:translateY(2px);box-shadow:0 0 0 var(--edge-soft)}
+.nav a.link[aria-current="true"]{box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 3px 0 var(--edge)}
+.nav a.link[aria-current="true"]:active{transform:translateY(3px);box-shadow:0 0 0 var(--edge)}
+
+/* ===== v2: splash "La Ola" ===== */
+#splash{position:fixed;inset:0;z-index:100;background:#15123D;color:#fff;display:grid;place-items:center;overflow:hidden;
+  transition:transform 1.05s cubic-bezier(.75,0,.2,1),opacity 1.05s ease;animation:splashfail 0s 4.5s forwards}
+#splash.out{transform:translateY(-100%);opacity:0;pointer-events:none}
+@keyframes splashfail{to{visibility:hidden;pointer-events:none}}
+.sp-layer{position:absolute;inset:0;transform:translateY(calc(100% + 90px));animation:tide 1.5s cubic-bezier(.25,.8,.25,1) forwards;animation-delay:var(--dl)}
+.sp-layer .crest{position:absolute;top:-89px;left:0;width:200%;height:90px;animation:drift var(--sp) linear infinite}
+.sp-layer .crest svg{display:block;width:100%;height:100%;fill:var(--lc)}
+.sp-layer .body{position:absolute;inset:0;background:var(--lc)}
+@keyframes tide{to{transform:translateY(0)}}
+@keyframes drift{to{transform:translateX(-50%)}}
+.sp-text{position:relative;z-index:2;text-align:center;padding:0 24px;opacity:0;animation:spin .8s .55s ease forwards}
+@keyframes spin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sp-text h2{margin:0;font-size:clamp(1.15rem,3.6vw,2.2rem);letter-spacing:.05em;font-weight:760;line-height:1.25}
+.sp-text p{margin:12px 0 0;font-size:clamp(.9rem,2vw,1.15rem);letter-spacing:.06em;opacity:.88}
+body:not(.ready) .bar{animation-play-state:paused}
+
+/* ===== v2: divisores de onda y bandas ===== */
+.wave-div{display:block;overflow:hidden;line-height:0;color:var(--surface-2);height:clamp(36px,6vw,72px)}
+.wave-div svg{width:200%;height:100%;display:block;fill:currentColor;animation:drift 24s linear infinite}
+.wave-div.flip{transform:scaleY(-1)}
+.wave-div.to-band{margin-top:clamp(56px,8vw,110px)}
+.band{background:var(--surface-2);padding-top:clamp(20px,3vw,40px);padding-bottom:clamp(56px,8vw,100px)}
+footer{margin-top:clamp(24px,4vw,48px)}
+
+/* ===== v2: reproductores ===== */
+.player{margin:22px 0;font-family:var(--display)}
+.player iframe{display:block;width:100%;height:80px;border:0;border-radius:14px}
+.player .fallback{display:flex;align-items:center;justify-content:space-between;gap:14px 20px;flex-wrap:wrap;padding:14px 18px 18px;border-radius:18px;background:var(--surface-2);box-shadow:inset 0 0 0 1.5px var(--line)}
+.player .fallback b{font-size:1.05rem;letter-spacing:-.01em}
+.player .fallback span{color:var(--muted);font-size:.9rem}
+
+/* ===== v2: línea de tiempo de olas ===== */
+.tl{display:grid;gap:22px;margin-bottom:38px}
+@media (min-width:860px){.tl{grid-template-columns:var(--cols);gap:18px}}
+.tl-bar{height:18px;border-radius:10px;background:var(--tc);box-shadow:inset 0 2px 0 rgba(255,255,255,.45),inset 0 -3px 0 rgba(0,0,0,.18),0 4px 0 color-mix(in srgb,var(--tc) 55%,#000)}
+.tl-seg h3{margin:14px 0 2px;font-size:1.25rem;letter-spacing:-.025em;line-height:1.15}
+.tl-seg .yr{font-weight:600;color:var(--muted);font-size:.92rem}
+.tl-seg ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tl-seg li{padding:.25rem .7rem;border-radius:9px;background:var(--surface);font-size:.88rem;font-weight:600;box-shadow:inset 0 0 0 1.5px var(--line)}
+
+/* ===== v2: contraste de la columna ===== */
+.contrast{display:grid;gap:26px;margin:0 0 32px;padding:clamp(18px,3vw,28px);border-radius:24px;background:var(--surface-2);font-family:var(--display);box-shadow:inset 0 0 0 1.5px var(--line)}
+@media (min-width:860px){.contrast{grid-template-columns:1.3fr 1fr;align-items:center;gap:36px}}
+.waffle{display:grid;grid-template-columns:repeat(29,1fr);gap:3px;margin-top:14px}
+.sq{aspect-ratio:1;border-radius:2px;background:var(--line)}
+.go .sq.on{background:var(--c23);transition:background .35s calc(var(--d)*3ms)}
+.ct-big{font-size:clamp(2.6rem,6vw,4.2rem);font-weight:760;letter-spacing:-.04em;line-height:1}
+.ct-txt{margin:6px 0 0;font-size:1rem;line-height:1.4}
+.ct-src{margin:10px 0 0;color:var(--muted);font-size:.85rem;line-height:1.4}
+.ct-r .ct-big{color:var(--accent)}
+.ct-note{grid-column:1 / -1;margin:0;color:var(--muted);font-size:.88rem;border-top:1.5px dashed var(--line);padding-top:12px}
+
+/* ===== v2: eje del gráfico ===== */
+.axis{position:relative;height:36px;margin-top:8px;font-family:var(--display);font-size:.8rem;color:var(--muted)}
+.axis i{position:absolute;top:0;height:8px;border-left:1.5px solid var(--muted)}
+.axis span{position:absolute;top:12px;transform:translateX(-50%);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){
+  .sp-layer{animation:none;transform:none}.sp-layer .crest,.wave-div svg{animation:none}
+  .sp-text{animation:none;opacity:1}#splash{transition:opacity .3s}#splash.out{transform:none}
+  .go .sq.on{transition:none}.nav a.link{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div id="splash" aria-hidden="true">
+  <div class="sp-layer" style="--lc:#0E9AA7;--dl:0s;--sp:9s"><div class="crest"><svg viewBox="0 0 2880 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div><div class="body"></div></div>
+  <div class="sp-layer" style="--lc:#E0338F;--dl:.15s;--sp:7s"><div class="crest"><svg viewBox="0 0 2880 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div><div class="body"></div></div>
+  <div class="sp-layer" style="--lc:#3A2DF0;--dl:.3s;--sp:5.5s"><div class="crest"><svg viewBox="0 0 2880 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div><div class="body"></div></div>
+  <div class="sp-text"><h2>SURFEANDO LA OLA URBANA | 2022 — 2026</h2><p>Periodismo de Datos Crossmedia</p></div>
+</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal">
+      <a class="brand" href="#inicio">Ola tras ola</a>
+      <ul>
+        <li><a class="link" href="#datos">Datos</a></li>
+        <li><a class="link" href="#olas">Olas</a></li>
+        <li><a class="link" href="#piezas">Piezas</a></li>
+        <li><a class="link" href="#fuentes">Fuentes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="wrap hero">
+    <h1>Ola tras ola</h1>
+    <p class="sub">Cuatro años de urbano chileno en el primer lugar de Spotify.</p>
+    <p class="lead">Revisamos 210 semanas del ranking semanal de Spotify Chile, de enero de 2022 a enero de 2026, para ver quién llega al #1, cuánto se queda y cómo se renueva la escena.</p>
+    <div class="cta">
+      <a class="btn" href="#datos">Explorar los datos</a>
+      <a class="btn ghost" href="#piezas">Leer las piezas</a>
+    </div>
+
+    <div class="strip-card">
+      <div class="readout">
+        <div class="when" id="r-when"></div>
+        <div class="song" id="r-song"></div>
+        <div class="who" id="r-who"></div>
+        <div class="num"><b id="r-num"></b><span>reproducciones esa semana</span></div>
+      </div>
+      <div class="strip" id="strip" tabindex="0" role="slider" aria-label="Semanas del ranking" aria-valuemin="1" aria-valuemax="210" aria-valuenow="1">
+        <div class="grid" id="grid"></div>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="years" id="years"></div>
+      <p class="hint">Cada barra es una semana y su altura son las reproducciones de la canción #1. Pasa el cursor o desliza el dedo; con teclado, usa las flechas.</p>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true"><div class="track" id="ticker"></div></div>
+
+  <section id="datos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Lo que dicen las 210 semanas</h2>
+        <p>La base registra la canción #1 de cada semana, su artista, su género y sus reproducciones. Esto es lo que sale al ordenarla.</p>
+      </div>
+      <div class="datos">
+        <ul class="findings">
+          <li style="--fc:var(--c22)"><b>59 canciones distintas llegaron al #1.</b> Cada una pasó en promedio 3,6 semanas arriba; el ranking cambia de dueño con rapidez.</li>
+          <li style="--fc:var(--c24)"><b>"Gata only" sostuvo la racha más larga: 12 semanas seguidas</b>, del 8 de febrero al 25 de abril de 2024.</li>
+          <li style="--fc:var(--c23)"><b>61 de las 210 semanas (29%) tuvieron solo artistas internacionales.</b> En las otras 149 hubo al menos un artista que no clasificamos como extranjero. En 2024 solo una semana fue 100% internacional.</li>
+          <li style="--fc:var(--c25)"><b>Jere Klein (48 semanas) y Cris MJ (46) son los más acreditados en el #1.</b> Cada semana cuenta para todos los artistas del tema, colaboraciones incluidas.</li>
+          <li style="--fc:var(--c26)"><b>El techo bajó.</b> El máximo fue de 6,98 millones de reproducciones (23 de junio de 2022, "Remix Ultra Solo"), y el promedio semanal del #1 pasó de 3,3 millones en 2022 a 2,3 millones en 2025.</li>
+          <li style="--fc:var(--btn)"><b>200 de 210 semanas fueron de género urbano (95%).</b> Las diez restantes: Shakira con Bizarrap (2), Karol G en merengue (1) y "OMS" de Jimin, K-pop (7).</li>
+        </ul>
+
+        <div class="card">
+          <div class="controls" id="yearChips" role="group" aria-label="Filtrar por año"></div>
+          <div class="controls sep" id="modeChips" role="group" aria-label="Ver por"></div>
+          <ol class="rank" id="rank"></ol>
+          <dl class="yearfacts" id="yearfacts"></dl>
+          <p class="note">En "Artistas", una semana cuenta una vez para cada artista acreditado en la canción.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-div to-band" aria-hidden="true"><svg viewBox="0 0 2880 80" preserveAspectRatio="none"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div>
+  <section id="olas" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Cada año trae a otro tipo de artista</h2>
+        <p>El reportaje cuenta el relevo: de los jóvenes de regiones y poblaciones, a los adolescentes de TikTok, a una influencer y un cantante que viene del rock. Estos son los mismos años vistos en los datos.</p>
+      </div>
+      <div class="tl" id="tl"></div>
+      <div class="waves" id="waves"><div class="progress" id="progress"></div></div>
+    </div>
+  </section>
+
+  <div class="wave-div flip" aria-hidden="true"><svg viewBox="0 0 2880 80" preserveAspectRatio="none"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div>
+  <section id="piezas">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Una investigación, cuatro formatos</h2>
+        <p>La misma base de datos se cuenta como reportaje, mapa, nota y columna. Elige por dónde entrar.</p>
+      </div>
+
+      <div class="path" role="tablist" aria-label="Piezas del proyecto">
+        <button class="tab" role="tab" id="t-reportaje" aria-controls="p-reportaje" aria-selected="true" data-tab="reportaje"><b>Reportaje</b><span>Contexto de la escena · texto</span></button>
+        <button class="tab" role="tab" id="t-mapa" aria-controls="p-mapa" aria-selected="false" data-tab="mapa"><b>Mapa</b><span>Geografía del streaming · mapa interactivo</span></button>
+        <button class="tab" role="tab" id="t-nota" aria-controls="p-nota" aria-selected="false" data-tab="nota"><b>Nota</b><span>Flaites X Siempre · texto y gráfico</span></button>
+        <button class="tab" role="tab" id="t-columna" aria-controls="p-columna" aria-selected="false" data-tab="columna"><b>Columna</b><span>Opinión sobre la radio · texto</span></button>
+      </div>
+
+      <!-- Reportaje -->
+      <div class="panel on" role="tabpanel" id="p-reportaje" aria-labelledby="t-reportaje">
+        <div class="piece">
+          <div class="meta card">
+            <dl>
+              <div><dt>Formato</dt><dd>Reportaje (avance)</dd></div>
+              <div><dt>Qué cuenta</dt><dd>El relevo de artistas urbanos entre 2022 y 2026</dd></div>
+              <div><dt>Datos que usa</dt><dd>Ranking semanal de Spotify Chile</dd></div>
+            </dl>
+            <a class="btn ghost" href="#olas">Ver las olas en los datos</a>
+          </div>
+          <article class="read">
+            <h3>De una ola de artistas urbanos de regiones a los de TikTok</h3>
+            <p>El verano de 2022, durante la primera semana de enero, la canción "Los Malvekes", de Cris MJ, Marcianeke y Simón La Letra, ocupaba el primer lugar del ranking semanal de Spotify Chile (Santiago). La canción ya llevaba varios meses circulando y había cerrado 2021 con una presencia importante en las plataformas, y para entonces había dejado de ser solo una canción popular, sino que sonaba en las discotecas y se coreaba en distintos lugares del país.</p>
+            <div class="player" data-player="malvekes" data-title="Los Malvekes" data-artists="Cris MJ, Marcianeke y Simón La Letra" data-q="Los Malvekes Marcianeke Cris MJ Simon La Letra"></div>
+            <p>Pero ¿qué tenía de especial esta canción? La canción significaba parte de una escena musical que comenzaba a tomar fuerza en Chile: una nueva generación de artistas, muchos de ellos provenientes de regiones y llegados a Santiago en busca de oportunidades, que irrumpía en las plataformas y en el espacio público con sonidos, códigos y formas de hacer música diferente a los que habían marcado la escena durante los años anteriores. Entre ellos estaba Pablo Chill-E, uno de los artistas que impulsó el género urbano en el país y que abrió camino a colaboraciones con figuras internacionales como Bad Bunny en 2020.</p>
+            <p>Más que el reguetón tradicional, esta nueva ola estaba atravesada por el trap, mambo, reguetón chileno y una estética propia que comenzaba a instalarse. "Los Malvekes" era, en ese sentido, algo que empezaba a repetirse en las listas de reproducción, es decir, la música hecha en Chile comenzaba a ocupar un lugar cada vez más visible entre las canciones más escuchadas del país.</p>
+            <p>Cuatro años después, a comienzos de 2026, esa escena ya no es la misma, y no solo porque hayan cambiado los nombres. Cada ola trajo un tipo distinto de artista: de los jóvenes de regiones y poblaciones que irrumpieron en 2022, a adolescentes viralizados en TikTok como Jere Klein, y en 2025 a una influencer, Katteyes, y a un cantante venido del rock, Kidd Voodoo. Recorrer ese relevo permite entender cómo se renueva una escena que premia la novedad constante.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Mapa -->
+      <div class="panel" role="tabpanel" id="p-mapa" aria-labelledby="t-mapa">
+        <div class="piece">
+          <div class="meta card">
+            <dl>
+              <div><dt>Formato</dt><dd>Mapa interactivo</dd></div>
+              <div><dt>Título</dt><dd>La ruta del streaming: geografía musical del género urbano en Spotify</dd></div>
+              <div><dt>Hecho con</dt><dd>Google My Maps</dd></div>
+            </dl>
+            <a class="btn" href="https://www.google.com/maps/d/viewer?hl=es&mid=1vvk74iOmlEjegLHXOs3jdwxjDhyKs68&ll=-28.482742394544335%2C-63.688221440683634&z=4" target="_blank" rel="noopener">Abrir mapa completo</a>
+          </div>
+          <div>
+            <div class="mapbox"><iframe title="La ruta del streaming: geografía musical del género urbano en Spotify" loading="lazy" src="https://www.google.com/maps/d/embed?mid=1vvk74iOmlEjegLHXOs3jdwxjDhyKs68&ehbc=2E312F&ll=-28.482742394544335%2C-63.688221440683634&z=4"></iframe></div>
+            <p class="note">Si el mapa no carga aquí, usa el botón "Abrir mapa completo".</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nota -->
+      <div class="panel" role="tabpanel" id="p-nota" aria-labelledby="t-nota">
+        <div class="piece">
+          <div class="meta card">
+            <dl>
+              <div><dt>Formato</dt><dd>Nota con gráfico</dd></div>
+              <div><dt>Autoría</dt><dd>Creedence Opazo J.</dd></div>
+              <div><dt>Sección</dt><dd>Música urbana chilena</dd></div>
+              <div><dt>Datos que usa</dt><dd>Reproducciones en Spotify, consultadas el 23 de septiembre de 2026</dd></div>
+            </dl>
+          </div>
+          <article class="read">
+            <h3>Pablo Chill-E y Julianno Sosa avanzan con el lanzamiento de su nuevo álbum colaborativo "Flaites X Siempre"</h3>
+            <p class="by">Por Creedence Opazo J.</p>
+            <p>Los artistas chilenos comenzaron a revelar las canciones de "Flaites x Siempre", proyecto compuesto por 13 canciones. "MOET", "ESA MUJER" y "TRANCE/CHICA FLAITE" forman parte de los primeros lanzamientos del disco, que continuará con nuevos estrenos hasta completar el álbum.</p>
+
+            <div class="player" data-player="hablamos" data-title="Hablamos Mañana" data-artists="Bad Bunny, Duki y Pablo Chill-E" data-q="Hablamos Mañana Bad Bunny Duki Pablo Chill-E"></div>
+
+            <p class="chartcap">Canciones más escuchadas de Pablo Chill-E y Julianno Sosa en Spotify</p>
+            <ol class="rank big" id="rank-nota"></ol>
+            <div class="axis" id="axis-nota" aria-hidden="true"></div>
+            <p class="note">Fuente: Spotify, cifras consultadas el 23 de septiembre de 2026. Las dos barras de color distinto son las canciones que firman juntos.</p>
+
+            <details>
+              <summary>Leer la nota completa</summary>
+              <p>Pablo Chill-E y Julianno Sosa comenzaron a revelar las canciones de <i>Flaites X Siempre</i>, su nuevo álbum colaborativo, mediante un lanzamiento progresivo de sus 13 temas. El proyecto comenzó a tomar forma con la publicación de nuevos sencillos durante esta semana y tiene prevista la salida completa para el 1 de octubre.</p>
+              <p>Entre los primeros adelantos se encuentran "MOET", "ESA MUJER" y "TRANCE/CHICA FLAITE", canciones que forman parte de los nuevos lanzamientos de Pablo Chill-E y Julianno Sosa. Con esto, ambos artistas comenzaron a revelar de manera progresiva los temas que integrarán <i>Flaites X Siempre</i>.</p>
+              <h4>Una colaboración que continúa</h4>
+              <p><i>Flaites X Siempre</i> no es el primer proyecto que Pablo Chill-E y Julianno Sosa realizan juntos. En mayo de 2020 ambos lanzaron <i>Flaites NY</i>, un álbum de nueve canciones, entre ellas "Dale Tu Kolin", "Shi Shi", "De Nada", "Haters Gon Cry", "Mucho Drip", "Maliantes", "Balas", "Molly" y "Hunnits".</p>
+              <p>Seis años después de <i>Flaites NY</i>, ambos artistas vuelven a trabajar juntos en una nueva producción. La colaboración también refleja una relación que se ha mantenido dentro de la escena urbana chilena y que ha acompañado parte de sus respectivas trayectorias.</p>
+              <h4>Música y vínculo con los barrios</h4>
+              <p>La trayectoria de ambos artistas está relacionada a la experiencia de sectores populares de Santiago. Pablo Chill-E, oriundo de Puente Alto, ha incorporado en su música referencias a la vida en las poblaciones y a la realidad de los sectores periféricos. En 2019 señaló que el trap podía servir para acercar realidades sociales que muchas veces permanecían separadas.</p>
+              <p>Su vínculo con estos temas también se extendió fuera de la música: durante el estallido social de 2019 participó en acciones de ayuda junto a la Coordinadora Social Shishigang, organización que también realiza actividades de apoyo para niños y jóvenes en sectores vulnerables.</p>
+              <p>Julianno Sosa también tiene sus raíces en Puente Alto. El artista ha hablado sobre su historia personal, su paso por Estados Unidos y las dificultades que enfrentó en ese periodo. Además, ha destacado el papel de la música urbana como una forma de generar unidad entre sus seguidores.</p>
+              <h4>El alcance de sus canciones</h4>
+              <p>La llegada de <i>Flaites X Siempre</i> también puede observarse a través del desempeño que han tenido sus trabajos anteriores en las plataformas digitales. Las reproducciones en Spotify muestran el alcance que Pablo Chill-E y Julianno Sosa han logrado con sus carreras: algunas de sus canciones, como "Hablamos Mañana" y "Cochinae", superan los cientos de millones de reproducciones. Además, sus colaboraciones anteriores muestran que ya existe un público que sigue su trabajo en conjunto antes del lanzamiento de su nuevo proyecto <i>Flaites X Siempre</i>.</p>
+            </details>
+          </article>
+        </div>
+      </div>
+
+      <!-- Columna -->
+      <div class="panel" role="tabpanel" id="p-columna" aria-labelledby="t-columna">
+        <div class="piece">
+          <div class="meta card">
+            <dl>
+              <div><dt>Formato</dt><dd>Columna de opinión</dd></div>
+              <div><dt>Autoría</dt><dd>Martín Cabrera</dd></div>
+              <div><dt>Datos que usa</dt><dd>Informe de la SCD 2024, Ley 20.810 y reproducciones en Spotify</dd></div>
+            </dl>
+          </div>
+          <article class="read">
+            <h3>De la periferia al mundo: la revolución autogestionada del urbano chileno frente al olvido radial</h3>
+            <p class="by">Por Martín Cabrera</p>
+            <div class="contrast" id="contrast"></div>
+            <div class="player" data-player="gataonly" data-title="Gata Only" data-artists="FloyyMenor y Cris MJ" data-q="Gata Only FloyyMenor Cris MJ"></div>
+            <p>Mientras el mundo entero escuchaba "Gata only", la radio chilena prefiere mirar para el lado y programar canciones de hace 20 años. La Ley 20.810 obliga a las emisoras a destinar al menos un 20% de su programación diaria a música nacional. En 2024, según la SCD, un 40,4% de las radios evaluadas (164 de 406) ni siquiera cumplió esa cuota mínima. Y las que sí la cumplen tampoco arriesgan mucho: dos de cada cinco canciones chilenas que suenan en el dial tienen más de 20 años, y un 60% pertenece a los mismos sellos multinacionales de siempre.</p>
+            <p>Afuera, el panorama es otro. "Una noche en Medellín" ya pasó los 755 millones de reproducciones en Spotify, y eso que salió recién en 2022. "Gata only" estuvo entre las cinco canciones más escuchadas del planeta en 2024, con lugar en Billboard y en Rolling Stone. En 2023, veinticinco canciones chilenas superaron los 25 millones de streams, todas urbanas. La mitad del top 30 de la última década en Chile es de este género. No es un boom aislado, es una generación entera que rompió el techo desde afuera hacia adentro.</p>
+            <blockquote>El problema no es de los artistas que se quedan sin sonar en el dial, sino de una industria tradicional que, por negarse a mirar la calle, corre el riesgo de quedarse hablando sola.</blockquote>
+            <p>A esta generación no le quedó otra que salvarse sola. Pablo Chill-E, que en algún momento estuvo amarrado a contratos con disqueras internacionales (las que se quedan con la tajada grande y frenan lo que se les antoja), hoy le dice abiertamente a los más jóvenes que armen su propio negocio al margen de los sellos: equipo, distribución, todo desde acá. No es un caso único. En España, Yung Beef hizo lo mismo con La Vendición: la prueba de que se puede construir algo sólido sin pedirle permiso a nadie.</p>
+            <p>Al final, el género urbano no necesita que las radios locales lo validen para existir; ya conquistó el mundo saltándose a los intermediarios. El problema no es de los artistas que se quedan sin sonar en el dial, sino de una industria tradicional que, por negarse a mirar la calle, corre el riesgo de quedarse hablando sola.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-div to-band" aria-hidden="true"><svg viewBox="0 0 2880 80" preserveAspectRatio="none"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div>
+  <section id="fuentes" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Fuentes y método</h2>
+        <p>De dónde salen los datos, cómo los ordenamos y qué límites tienen.</p>
+      </div>
+      <div class="src">
+        <div class="card">
+          <h3>Fuentes documentales</h3>
+          <ul>
+            <li>Ranking semanal de Spotify Chile: canción #1, artista, género y reproducciones, enero de 2022 a enero de 2026 (base propia del equipo).</li>
+            <li>Reproducciones en Spotify de Pablo Chill-E y Julianno Sosa, consultadas el 23 de septiembre de 2026.</li>
+            <li>Informe 2024 de la SCD sobre música nacional en radio, citado en la columna.</li>
+            <li>Ley 20.810 sobre cuota de música nacional en radio, citada en la columna.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes vivas</h3>
+          <div class="empty">Aquí van las personas entrevistadas y qué aportó cada una a las piezas. Falta cargarlas.</div>
+        </div>
+        <div class="card">
+          <h3>Cómo se limpió la base</h3>
+          <ul>
+            <li>Siete fechas de 2022 llegaron mal leídas desde Excel (aparecían como 2026); se usó el año de la columna "Año".</li>
+            <li>Cuatro cifras venían como texto con puntos (por ejemplo, 1.937.713) y se convirtieron a número.</li>
+            <li>Se unificó la escritura de artistas: Marcianeke, Standly, Polimá Westcoast, Kidd Voodoo y Benjialkapone, entre otros.</li>
+            <li>"Solo artistas internacionales" es una clasificación del equipo, sin fuente externa: una semana cuenta así si todos los artistas acreditados son extranjeros.</li>
+            <li>2026 tiene solo 2 semanas, así que no sirve para comparar con los años completos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="wave-div flip" aria-hidden="true"><svg viewBox="0 0 2880 80" preserveAspectRatio="none"><path d="M0 40 Q180 0 360 40 T720 40 T1080 40 T1440 40 T1800 40 T2160 40 T2520 40 T2880 40 V80 H0 Z"/></svg></div>
+  </main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Ola tras ola</b><br>Proyecto crossmedia de Periodismo de Datos y Precisión 2</div>
+    <div>Textos de Martín Cabrera y Creedence Opazo J.<br>Datos: Spotify Chile, 2022–2026</div>
+  </div>
+</footer>
+
+<script>
+const ROWS = [[2022,6,1,"Los Malvekes",["Cris MJ","Marcianeke","Simón La Letra","Stars Music Chile"],"Urbano",1977673,0],[2022,13,1,"Mi Gata",["Standly","El Barto"],"Urbano",1951385,0],[2022,20,1,"Pégate",["Standly"],"Urbano",2366170,0],[2022,27,1,"Pégate",["Standly"],"Urbano",2492298,0],[2022,3,2,"Pégate",["Standly"],"Urbano",2457968,0],[2022,10,2,"Pégate",["Standly"],"Urbano",2293851,0],[2022,17,2,"Pégate",["Standly"],"Urbano",2232306,0],[2022,24,2,"Una Noche en Medellín",["Cris MJ"],"Urbano",2397729,0],[2022,3,3,"Una Noche en Medellín",["Cris MJ"],"Urbano",2546682,0],[2022,10,3,"Una Noche en Medellín",["Cris MJ"],"Urbano",2747182,0],[2022,17,3,"Una Noche en Medellín",["Cris MJ"],"Urbano",2934469,0],[2022,24,3,"ULTRA SOLO",["Polimá Westcoast","Pailita"],"Urbano",3660826,0],[2022,31,3,"ULTRA SOLO",["Polimá Westcoast","Pailita"],"Urbano",3605877,0],[2022,7,4,"Me arrepiento",["Ak4:420","Pailita","Cris MJ"],"Urbano",6955503,0],[2022,14,4,"Me arrepiento",["Ak4:420","Pailita","Cris MJ"],"Urbano",5895599,0],[2022,21,4,"Me arrepiento",["Ak4:420","Pailita","Cris MJ"],"Urbano",4707393,0],[2022,28,4,"Me arrepiento",["Ak4:420","Pailita","Cris MJ"],"Urbano",4106982,0],[2022,5,5,"Me arrepiento",["Ak4:420","Pailita","Cris MJ"],"Urbano",3909088,0],[2022,12,5,"Moscow Mule",["Bad Bunny"],"Urbano",4228159,1],[2022,19,5,"Ojitos Lindos",["Bad Bunny","Bomba Estéreo"],"Urbano",3506660,1],[2022,26,5,"Ojitos Lindos",["Bad Bunny","Bomba Estéreo"],"Urbano",3351429,1],[2022,31,5,"Ojitos Lindos",["Bad Bunny","Bomba Estéreo"],"Urbano",3158830,1],[2022,9,6,"Ojitos Lindos",["Bad Bunny","Bomba Estéreo"],"Urbano",3073907,1],[2022,18,6,"Me Porto Bonito",["Bad Bunny","Chencho Corleone"],"Urbano",3191510,1],[2022,23,6,"REMIX ULTRA SOLO",["Polimá Westcoast","Feid","Pailita","Paloma Mami","De La Ghetto"],"Urbano",6976383,0],[2022,30,6,"REMIX ULTRA SOLO",["Polimá Westcoast","Feid","Pailita","Paloma Mami","De La Ghetto"],"Urbano",4252363,0],[2022,7,7,"REMIX ULTRA SOLO",["Polimá Westcoast","Feid","Pailita","Paloma Mami","De La Ghetto"],"Urbano",3366431,0],[2022,14,7,"REMIX ULTRA SOLO",["Polimá Westcoast","Feid","Pailita","Paloma Mami","De La Ghetto"],"Urbano",2915892,0],[2022,21,7,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",4355524,1],[2022,28,7,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",4713184,1],[2022,4,8,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",4458636,1],[2022,11,8,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",4288824,1],[2022,18,8,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",3775211,1],[2022,25,8,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",3601300,1],[2022,1,9,"Quevedo: Bzrp Music Sessions, Vol.52/66",["Bizarrap","Quevedo"],"Urbano",3292215,1],[2022,8,9,"Marisola",["Cris MJ","Standly","Estrellas de la Música Chile"],"Urbano",3075913,0],[2022,15,9,"Marisola",["Cris MJ","Standly","Estrellas de la Música Chile"],"Urbano",2981579,0],[2022,22,9,"Marisola",["Cris MJ","Standly","Estrellas de la Música Chile"],"Urbano",2629625,0],[2022,29,9,"Marisola",["Cris MJ","Standly","Estrellas de la Música Chile"],"Urbano",2635687,0],[2022,6,10,"BEBÉ OTAKU",["Pablito Pesadilla","Polimá Westcoast","Nickoog Clk","Fran C"],"Urbano",2763479,0],[2022,13,10,"BEBÉ OTAKU",["Pablito Pesadilla","Polimá Westcoast","Nickoog Clk","Fran C"],"Urbano",2641219,0],[2022,20,10,"La Bachata",["Manuel Turizo"],"Urbano",2546981,1],[2022,27,10,"Na Na Na - Remix",["Pailita","El Jordan 23","Noriel","Pablo Chill-E"],"Urbano",2608629,0],[2022,3,11,"Fiera",["Cris MJ","Tiago PZK"],"Urbano",2570669,0],[2022,10,11,"Hey Mor",["Ozuna","Feid"],"Urbano",2539488,1],[2022,17,11,"Hey Mor",["Ozuna","Feid"],"Urbano",2807609,1],[2022,24,11,"Hey Mor",["Ozuna","Feid"],"Urbano",2830646,1],[2022,30,11,"Hey Mor",["Ozuna","Feid"],"Urbano",2604826,1],[2022,8,12,"Hey Mor",["Ozuna","Feid"],"Urbano",2471668,1],[2022,15,12,"Hey Mor",["Ozuna","Feid"],"Urbano",2356768,1],[2022,22,12,"Hey Mor",["Ozuna","Feid"],"Urbano",2409218,1],[2022,29,12,"Llámame Bebé",["Pailita","Cris MJ","Young Cister"],"Urbano",3960746,0],[2023,5,1,"Llámame Bebé",["Pailita","Cris MJ","Young Cister"],"Urbano",3681577,0],[2023,12,1,"Llámame Bebé",["Pailita","Cris MJ","Young Cister"],"Urbano",3232945,0],[2023,19,1,"Shakira: Bzrp Music Sessions, Vol 53/66",["Bizarrap","Shakira"],"electropop, EDM (música dance electrónica), synthwave y disco",3956112,1],[2023,26,1,"Shakira: Bzrp Music Sessions, Vol 53/66",["Bizarrap","Shakira"],"electropop, EDM (música dance electrónica), synthwave y disco",2889921,1],[2023,2,2,"Yandel 150",["Yandel","Feid"],"Urbano",2752322,1],[2023,9,2,"Yandel 150",["Yandel","Feid"],"Urbano",2595936,1],[2023,16,2,"Yandel 150",["Yandel","Feid"],"Urbano",2564618,1],[2023,23,2,"Yandel 150",["Yandel","Feid"],"Urbano",2541115,1],[2023,28,2,"TQG",["Karol G","Shakira"],"Urbano",3989425,1],[2023,9,3,"TQG",["Karol G","Shakira"],"Urbano",4264406,1],[2023,16,3,"TQG",["Karol G","Shakira"],"Urbano",3888885,1],[2023,23,3,"TQG",["Karol G","Shakira"],"Urbano",3572247,1],[2023,30,3,"TQG",["Karol G","Shakira"],"Urbano",3013537,1],[2023,6,4,"TQG",["Karol G","Shakira"],"Urbano",2666283,1],[2023,13,4,"TQG",["Karol G","Shakira"],"Urbano",2246812,1],[2023,20,4,"XQ TAN SOLA?",["Nickoog Clk","Jere Klein"],"Urbano",2554367,0],[2023,27,4,"UN X100TO",["Grupo Frontero"],"Urbano",2827189,1],[2023,4,5,"UN X100TO",["Grupo Frontero"],"Urbano",3197631,1],[2023,11,5,"UN X100TO",["Grupo Frontero"],"Urbano",3005292,1],[2023,18,5,"Ella Baila Sola",["Eslabon Armado","Peso Pluma"],"Ranchera, reguetón",2919862,1],[2023,25,5,"A DÓNDE VA ELLA",["Bad Bunny"],"Urbano",2474331,1],[2023,1,6,"Ella Baila Sola",["Eslabon Armado","Peso Pluma"],"Ranchera, reguetón",2233425,1],[2023,8,6,"UNA EN UN MILLÓN",["Jere Klein","Mateo en el Beatz"],"Urbano",2516672,0],[2023,15,6,"A DÓNDE VA ELLA",["Bad Bunny"],"Urbano",1937713,1],[2023,22,6,"EL AMOR DE TU VIDA",["Gino Mella","Jairo Vera","Mejor","Asturto"],"Urbano",2065386,0],[2023,29,6,"EL AMOR DE TU VIDA",["Gino Mella","Jairo Vera","Mejor","Asturto"],"Urbano",2100746,0],[2023,6,7,"LALA",["Myke Towers"],"Urbano",2278644,1],[2023,13,7,"LALA",["Myke Towers"],"Urbano",3193325,1],[2023,20,7,"LALA",["Myke Towers"],"Urbano",3334814,1],[2023,27,7,"LALA",["Myke Towers"],"Urbano",3117900,1],[2023,3,8,"LALA",["Myke Towers"],"Urbano",3240754,1],[2023,10,8,"LALA",["Myke Towers"],"Urbano",2880772,1],[2023,17,8,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",3237932,0],[2023,24,8,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",2956073,0],[2023,31,8,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",3465663,0],[2023,7,9,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",3255108,0],[2023,14,9,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",2871435,0],[2023,21,9,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",2758937,0],[2023,28,9,"X ESO BB",["Jere Klein","Nicki Nicole"],"Urbano",2925479,0],[2023,5,10,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",4554551,0],[2023,12,10,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",4538263,0],[2023,19,10,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",3843640,0],[2023,26,10,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",3846585,0],[2023,2,11,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",3418306,0],[2023,9,11,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",3352396,0],[2023,16,11,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",3148985,0],[2023,23,11,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",2875972,0],[2023,30,11,"ANDO",["Jere Klein","Gittobeatz"],"Urbano",2787406,0],[2023,7,12,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",2673683,0],[2023,14,12,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3690654,0],[2023,21,12,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3978556,0],[2023,28,12,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3711446,0],[2024,4,1,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3639015,0],[2024,11,1,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3225260,0],[2024,18,1,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3392565,0],[2024,25,1,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3324335,0],[2024,1,2,"PRINCESITA DE…",["Jere Klein","Nickoog Clk","Lucky Brown","EL BAI"],"Urbano",3043037,0],[2024,8,2,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",3959318,0],[2024,15,2,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4807312,0],[2024,22,2,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",5015499,0],[2024,29,2,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",5031890,0],[2024,7,3,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4957733,0],[2024,14,3,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",5071071,0],[2024,21,3,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4787144,0],[2024,28,3,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4539955,0],[2024,4,4,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4163160,0],[2024,11,4,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4411786,0],[2024,18,4,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4428419,0],[2024,25,4,"Gata only",["FloyyMenor","Cris MJ"],"Urbano",4141246,0],[2024,2,5,"Gitana",["Pablo Chill-E","Bryartz"],"Urbano y flamento",3818577,0],[2024,9,5,"Gitana",["Pablo Chill-E","Bryartz"],"Urbano y flamento",3368937,0],[2024,16,5,"Gitana",["Pablo Chill-E","Bryartz"],"Urbano y flamento",3295045,0],[2024,23,5,"Gitana",["Pablo Chill-E","Bryartz"],"Urbano y flamento",2705405,0],[2024,30,5,"Si no es contigo",["Cris MJ"],"Urbano",4228648,0],[2024,6,6,"Si no es contigo",["Cris MJ"],"Urbano",4763490,0],[2024,13,6,"Si no es contigo",["Cris MJ"],"Urbano",4303369,0],[2024,20,6,"Si no es contigo",["Cris MJ"],"Urbano",3631861,0],[2024,27,6,"Si no es contigo",["Cris MJ"],"Urbano",2653977,0],[2024,4,7,"Si no es contigo",["Cris MJ"],"Urbano",2581206,0],[2024,11,7,"No ponga excusas",["Cris MJ"],"Urbano",2361704,0],[2024,18,7,"No ponga excusas",["Cris MJ"],"Urbano",2316000,0],[2024,25,7,"No ponga excusas",["Cris MJ"],"Urbano",2068809,0],[2024,1,8,"PELIGROSA",["FloyyMenor"],"Urbano",2073687,0],[2024,8,8,"PELIGROSA",["FloyyMenor"],"Urbano",2079597,0],[2024,15,8,"Si Antes Te Hubiera Conocido",["Karol G"],"Merengue",2156701,1],[2024,22,8,"CHIKA MALA",["Jere Klein","Mateo en el Beatz","El Murciélago"],"Urbano",2335695,0],[2024,29,8,"CHIKA MALA",["Jere Klein","Mateo en el Beatz","El Murciélago"],"Urbano",2654256,0],[2024,5,9,"CHIKA MALA",["Jere Klein","Mateo en el Beatz","El Murciélago"],"Urbano",2577927,0],[2024,12,9,"PELIGROSA",["FloyyMenor"],"Urbano",2368684,0],[2024,19,9,"Después De La 1",["Cris MJ","FloyyMenor","LOUKI"],"Urbano",3252784,0],[2024,26,9,"Después De La 1",["Cris MJ","FloyyMenor","LOUKI"],"Urbano",3372109,0],[2024,3,10,"Después De La 1",["Cris MJ","FloyyMenor","LOUKI"],"Urbano",3317133,0],[2024,10,10,"Después De La 1",["Cris MJ","FloyyMenor","LOUKI"],"Urbano",3123724,0],[2024,17,10,"Después De La 1",["Cris MJ","FloyyMenor","LOUKI"],"Urbano",2677550,0],[2024,24,10,"Después De La 1",["Cris MJ","FloyyMenor","LOUKI"],"Urbano",2483711,0],[2024,31,10,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",2594867,0],[2024,7,11,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",2756552,0],[2024,14,11,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",2812463,0],[2024,21,11,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",2499846,0],[2024,28,11,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",2295158,0],[2024,5,12,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",2076033,0],[2024,12,12,"A200",["Bayron Fire","Jairo Vera","Rey Salvaje"],"Urbano",1994668,0],[2024,19,12,"Cosa Linda",["Lucky Brown","Mateo en el Beatz"],"Urbano",1908896,0],[2024,26,12,"Cosa Linda",["Lucky Brown","Mateo en el Beatz"],"Urbano",2109717,0],[2025,2,1,"Cosa Linda",["Lucky Brown","Mateo en el Beatz"],"Urbano",1991745,0],[2025,9,1,"DEPORTIVO",["Bendito","Anuel AA","Ovy en la batería"],"Urbano",1921462,0],[2025,16,1,"DtMF",["Bad Bunny"],"Reguetón alternativo,salsa, etc.",4184446,1],[2025,23,1,"DtMF",["Bad Bunny"],"Reguetón alternativo,salsa, etc.",3299336,1],[2025,30,1,"DtMF",["Bad Bunny"],"Reguetón alternativo,salsa, etc.",2455984,1],[2025,6,2,"VOY A LLeVARTE PA PR",["Bad Bunny"],"Urbano",2232101,1],[2025,13,2,"VOY A LLeVARTE PA PR",["Bad Bunny"],"Urbano",2141040,1],[2025,20,2,"BAILE INOLVIDABLE",["Bad Bunny"],"Urbano",1920287,1],[2025,27,2,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",2378520,0],[2025,6,3,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",3114341,0],[2025,13,3,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",3304949,0],[2025,20,3,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",3096636,0],[2025,27,3,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",2751075,0],[2025,3,4,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",2408859,0],[2025,10,4,"PONTE LOKITA",["Katteyes","Kidd Voodoo","Swift 047"],"Urbano",2202468,0],[2025,17,4,"Minnie 2",["Kidd Voodoo"],"Urbano",2198311,0],[2025,24,4,"Minnie 2",["Kidd Voodoo"],"Urbano",1687352,0],[2025,1,5,"OMS",["Jimin"],"KPOP",1591444,1],[2025,8,5,"OMS",["Jimin"],"KPOP",1634044,1],[2025,15,5,"OMS",["Jimin"],"KPOP",1658017,1],[2025,22,5,"Bella",["Lucky Brown","Jere Klein"],"Urbano",1751546,0],[2025,29,5,"QLOO*",["Young Cister","Kreamly"],"Urbano",2814146,0],[2025,5,6,"QLOO*",["Young Cister","Kreamly"],"Urbano",2595484,0],[2025,12,6,"QLOO*",["Young Cister","Kreamly"],"Urbano",2163848,0],[2025,19,6,"Mambino Brasileño",["Benjialkapone"],"Urbano",2090686,0],[2025,26,6,"BAILAME ASI",["Katteyes","Jere Klein","Lucky Brown"],"Urbano",1843013,0],[2025,3,7,"BAILAME ASI",["Katteyes","Jere Klein","Lucky Brown"],"Urbano",2621666,0],[2025,10,7,"Vamos a Bailotear",["Cris MJ"],"Urbano",2972645,0],[2025,17,7,"BAILAME ASI",["Katteyes","Jere Klein","Lucky Brown"],"Urbano",2537905,0],[2025,24,7,"BAILAME ASI",["Katteyes","Jere Klein","Lucky Brown"],"Urbano",2390574,0],[2025,31,7,"BAILAME ASI",["Katteyes","Jere Klein","Lucky Brown"],"Urbano",2098320,0],[2025,7,8,"BAILAME ASI",["Katteyes","Jere Klein","Lucky Brown"],"Urbano",1993209,0],[2025,14,8,"Destello…",["Kid Voodo"],"Urbano, rock chileno, alternativo, etc.",2346760,0],[2025,21,8,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",2939908,0],[2025,28,8,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",3603837,0],[2025,4,9,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",3341284,0],[2025,11,9,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",2988365,0],[2025,18,9,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",2589815,0],[2025,25,9,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",2122860,0],[2025,2,10,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",2341472,0],[2025,9,10,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",2090411,0],[2025,16,10,"TODO KE VER",["Jere Klein","Katteyes","Mateo en el Beatz"],"Urbano",1872924,0],[2025,23,10,"Shiny",["Easykid","Bysbit"],"Urbano",1861374,0],[2025,30,10,"TU Y YO",["Jere Klein","Bayriton","Adán La Amenaza"],"Urbano",1847892,0],[2025,6,11,"TU Y YO",["Jere Klein","Bayriton","Adán La Amenaza"],"Urbano",1791977,0],[2025,13,11,"Comando Estelar",["Germanini","Lyon La F","JhonAlex","Nacho G Flow"],"Urbano",1656683,0],[2025,20,11,"Pasajero",["King Savagge","Lyon La F","Katteyes","Lewis Somes"],"Urbano",2035340,0],[2025,27,11,"Pasajero",["King Savagge","Lyon La F","Katteyes","Lewis Somes"],"Urbano",2555062,0],[2025,4,12,"Pasajero",["King Savagge","Lyon La F","Katteyes","Lewis Somes"],"Urbano",2100580,0],[2025,11,12,"Pasajero",["King Savagge","Lyon La F","Katteyes","Lewis Somes"],"Urbano",1737920,0],[2025,18,12,"OMS",["Jimin"],"KPOP",1581435,1],[2025,25,12,"OMS",["Jimin"],"KPOP",1451624,1],[2026,1,1,"OMS",["Jimin"],"KPOP",1537505,1],[2026,8,1,"OMS",["Jimin"],"KPOP",1466430,1]];
+const R = ROWS.map(a => ({y:a[0], d:a[1], m:a[2], song:a[3], art:a[4], gen:a[5], st:a[6], intl:a[7]}));
+const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const YC = {2022:'var(--c22)',2023:'var(--c23)',2024:'var(--c24)',2025:'var(--c25)',2026:'var(--c26)'};
+const nf = n => n.toLocaleString('es-CL');
+const mil = n => (n/1e6).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' M';
+const fdate = r => `${r.d} ${MES[r.m-1]} ${r.y}`;
+const $ = s => document.querySelector(s);
+const N = R.length, SCALE = 7000000;
+
+/* ---------- Franja hero ---------- */
+const barsEl = $('#bars'), strip = $('#strip');
+R.forEach((r,i) => {
+  const b = document.createElement('div');
+  b.className = 'bar';
+  b.style.cssText = `height:${(r.st/SCALE*100).toFixed(2)}%;--bc:${YC[r.y]};--i:${i}`;
+  barsEl.appendChild(b);
+});
+[2e6,4e6,6e6].forEach(v => {
+  const i = document.createElement('i'); i.style.bottom = (v/SCALE*100)+'%';
+  const e = document.createElement('em'); e.textContent = (v/1e6)+' M'; i.appendChild(e); $('#grid').appendChild(i);
+});
+const yearsEl = $('#years');
+[2022,2023,2024,2025,2026].forEach(y => {
+  const first = R.findIndex(r => r.y===y), cnt = R.filter(r=>r.y===y).length;
+  const s = document.createElement('span');
+  s.style.cssText = y===2026 ? `right:0;--yc:${YC[y]};border-left:0;border-right:2px solid ${YC[y]};padding:0 6px 0 0;text-align:right` : `left:${first/N*100}%;--yc:${YC[y]}`;
+  s.innerHTML = y + (y===2026 ? '<small>2 sem.</small>' : '');
+  yearsEl.appendChild(s);
+});
+let cur = -1;
+function show(i){
+  i = Math.max(0, Math.min(N-1, i));
+  if(i===cur) return;
+  if(cur>=0) barsEl.children[cur].classList.remove('on');
+  cur = i; barsEl.children[i].classList.add('on');
+  const r = R[i];
+  $('#r-when').innerHTML = `<span class="dot" style="--dc:${YC[r.y]}"></span>Semana del ${fdate(r)}`;
+  $('#r-song').textContent = r.song;
+  $('#r-who').innerHTML = r.art.join(', ') + (r.intl ? '<br><span class="tag">Solo artistas internacionales</span>' : '');
+  $('#r-num').textContent = nf(r.st);
+  strip.setAttribute('aria-valuenow', i+1);
+  strip.setAttribute('aria-valuetext', `Semana del ${fdate(r)}: ${r.song}`);
+}
+const peak = R.reduce((a,r,i)=> r.st>R[a].st ? i : a, 0);
+show(peak);
+function fromPointer(e){
+  const rc = strip.getBoundingClientRect();
+  show(Math.floor((e.clientX - rc.left)/rc.width*N));
+}
+strip.addEventListener('pointermove', fromPointer);
+strip.addEventListener('pointerdown', fromPointer);
+strip.addEventListener('keydown', e => {
+  const k = {ArrowRight:1,ArrowLeft:-1,PageUp:13,PageDown:-13}[e.key];
+  if(e.key==='Home'){show(0);e.preventDefault();return}
+  if(e.key==='End'){show(N-1);e.preventDefault();return}
+  if(k){ show(cur + (e.key==='PageUp'?-k:k)); e.preventDefault(); }
+});
+
+/* ---------- Ticker ---------- */
+const seen = new Set(), tk = [];
+R.forEach(r => { if(!seen.has(r.song)){ seen.add(r.song); tk.push(r); } });
+const tkHtml = tk.map(r => `<span><i style="--tc:${YC[r.y]}"></i>${r.song.replace(/&/g,'&amp;')}</span>`).join('');
+$('#ticker').innerHTML = tkHtml + tkHtml;
+
+/* ---------- Explorador ---------- */
+let fy = 'all', fm = 'songs';
+const yearChips = $('#yearChips'), modeChips = $('#modeChips');
+['all',2022,2023,2024,2025,2026].forEach(y => {
+  const b = document.createElement('button'); b.className='chip'; b.type='button';
+  b.textContent = y==='all' ? 'Todos los años' : y; b.dataset.v = y; b.setAttribute('aria-pressed', y==='all');
+  yearChips.appendChild(b);
+});
+[['songs','Canciones'],['artists','Artistas']].forEach(([v,t]) => {
+  const b = document.createElement('button'); b.className='chip'; b.type='button';
+  b.textContent = t; b.dataset.v = v; b.setAttribute('aria-pressed', v===fm);
+  modeChips.appendChild(b);
+});
+yearChips.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; fy = b.dataset.v==='all' ? 'all' : +b.dataset.v; [...yearChips.children].forEach(c => c.setAttribute('aria-pressed', c===b)); renderRank(); });
+modeChips.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; fm = b.dataset.v; [...modeChips.children].forEach(c => c.setAttribute('aria-pressed', c===b)); renderRank(); });
+
+function drawRank(ol, items, max, colorFn){
+  ol.innerHTML = items.map((it,i) => `<li${it.tip?` title="${it.tip}"`:''}><span class="nm">${it.label}${it.sub?`<span class="sm">${it.sub}</span>`:''}</span><span class="ct">${it.value}</span><span class="tr"><span class="fl" style="--fc:${colorFn?colorFn(it,i):'var(--btn)'}" data-w="${(it.raw/max*100).toFixed(2)}"></span></span></li>`).join('');
+  requestAnimationFrame(() => requestAnimationFrame(() => ol.querySelectorAll('.fl').forEach(f => f.style.width = f.dataset.w + '%')));
+}
+function renderRank(){
+  const rows = fy==='all' ? R : R.filter(r => r.y===fy);
+  const c = new Map();
+  rows.forEach(r => {
+    if(fm==='songs'){ c.set(r.song,(c.get(r.song)||0)+1); }
+    else new Set(r.art).forEach(a => c.set(a,(c.get(a)||0)+1));
+  });
+  const top = [...c.entries()].sort((a,b)=> b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,8);
+  const max = top[0][1];
+  const col = fy==='all' ? 'var(--btn)' : YC[fy];
+  drawRank($('#rank'), top.map(([k,v]) => ({label:k.replace(/&/g,'&amp;'), value:v+(v===1?' semana':' semanas'), raw:v})), max, () => col);
+  const n = rows.length, songs = new Set(rows.map(r=>r.song)).size;
+  const avg = rows.reduce((s,r)=>s+r.st,0)/n, intl = rows.filter(r=>r.intl).length;
+  const pk = rows.reduce((a,r)=> r.st>a.st ? r : a, rows[0]);
+  $('#yearfacts').innerHTML =
+    `<div><dt>Semanas en la base</dt><dd>${n}</dd></div>
+     <div><dt>Canciones distintas en el #1</dt><dd>${songs}</dd></div>
+     <div><dt>Promedio semanal del #1</dt><dd>${mil(avg)}</dd></div>
+     <div><dt>Semanas solo internacionales</dt><dd>${intl} de ${n}</dd></div>
+     <div><dt>Semana más alta</dt><dd>${(pk.st/1e6).toLocaleString('es-CL',{minimumFractionDigits:2,maximumFractionDigits:2})} M, ${fdate(pk)}</dd></div>`;
+}
+renderRank();
+
+/* ---------- Olas ---------- */
+const WAVES = [
+  {y:2022, kicker:'Regiones y poblaciones', title:'La escena llega a Santiago desde afuera', text:'"Los Malvekes" abre el año en el primer lugar. Jóvenes de regiones y poblaciones entran al ranking con trap, mambo y reguetón chileno.'},
+  {y:2023, kicker:'TikTok', title:'Adolescentes viralizados toman el ranking', text:'Jere Klein llega al #1 en abril y encadena éxitos durante todo el año. Según el reportaje, es la ola de los adolescentes viralizados en TikTok.'},
+  {y:2024, kicker:'La racha larga', title:'Un solo tema domina de febrero a abril', text:'"Gata only" pasa 12 semanas seguidas en el #1. Solo una de las 52 semanas del año tuvo exclusivamente artistas internacionales.'},
+  {y:2025, kicker:'Una influencer y un cantante del rock', title:'Entran Katteyes y Kidd Voodoo', text:'"Ponte Lokita" llega al #1 a fines de febrero. Katteyes y Kidd Voodoo representan los dos perfiles nuevos de la escena.'},
+  {y:2026, kicker:'Lo que va del año', title:'Solo hay dos semanas en la base', text:'El año parte con "OMS", de Jimin, que ya había ocupado el #1 en 2025. Con tan pocos datos, no se puede hablar de una nueva ola.'}
+];
+const wavesEl = $('#waves');
+WAVES.forEach(w => {
+  const rows = R.filter(r => r.y===w.y);
+  const sc = new Map(); rows.forEach(r => sc.set(r.song,(sc.get(r.song)||0)+1));
+  const ts = [...sc.entries()].sort((a,b)=>b[1]-a[1])[0];
+  const ac = new Map(); rows.forEach(r => new Set(r.art).forEach(a => ac.set(a,(ac.get(a)||0)+1)));
+  const ta = [...ac.entries()].sort((a,b)=>b[1]-a[1])[0];
+  const intl = rows.filter(r=>r.intl).length;
+  const el = document.createElement('article');
+  el.className = 'wave'; el.style.setProperty('--wc', YC[w.y]);
+  el.innerHTML = `<h3><small>${w.y} · ${w.kicker}</small>${w.title}</h3><p>${w.text}</p>
+    <ul class="nums">
+      <li>Más semanas: ${ts[0].replace(/&/g,'&amp;')} (${ts[1]})</li>
+      <li>Más acreditado: ${ta[0]} (${ta[1]} sem.)</li>
+      <li>${new Set(rows.map(r=>r.song)).size} ${new Set(rows.map(r=>r.song)).size===1?'canción':'canciones'} en el #1</li>
+      <li>${intl} sem. solo internacionales</li>
+    </ul>`;
+  wavesEl.appendChild(el);
+});
+const prog = $('#progress');
+function updateProgress(){
+  const rc = wavesEl.getBoundingClientRect();
+  const h = Math.max(0, Math.min(rc.height-12, innerHeight*0.6 - rc.top));
+  prog.style.height = h + 'px';
+}
+addEventListener('scroll', updateProgress, {passive:true}); addEventListener('resize', updateProgress); updateProgress();
+
+/* ---------- Gráfico de la nota ---------- */
+const NOTA = [
+  ['Hablamos Mañana','Bad Bunny, Duki y Pablo Chill-E',303464377,0],
+  ['Cochinae','Julianno Sosa y King Savagge',185029835,0],
+  ['Resentía','Pablo Chill-E',170601061,0],
+  ['Bastardo','Pablo Chill-E, Ñengo Flow y Jere Klein',170123208,0],
+  ['y ke pa7 (Remix)','Julianno Sosa, Benjialkapone y Jairo Vera',82096481,0],
+  ['Vlone','Julianno Sosa y Pablo Chill-E',12179484,1],
+  ['Dale Tu Kolin','Pablo Chill-E y Julianno Sosa',10983224,1]
+];
+drawRank($('#rank-nota'), NOTA.map(n => ({label:n[0], sub:n[1], value:nf(n[2]), raw:n[2], j:n[3], tip:`${n[0]}: ${nf(n[2])} reproducciones (${(n[2]/NOTA[0][2]*100).toFixed(2).replace('.',',')}% de la barra máxima)`})), NOTA[0][2], it => it.j ? 'var(--c23)' : 'var(--btn)');
+
+/* ---------- Pestañas ---------- */
+const tabs = [...document.querySelectorAll('.tab')];
+function openTab(t){
+  tabs.forEach(b => { const on = b===t; b.setAttribute('aria-selected', on); b.tabIndex = on?0:-1; });
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id==='p-'+t.dataset.tab));
+}
+tabs.forEach(t => { t.tabIndex = t.getAttribute('aria-selected')==='true'?0:-1; t.addEventListener('click', () => openTab(t)); });
+document.querySelector('.path').addEventListener('keydown', e => {
+  const i = tabs.findIndex(t => t.getAttribute('aria-selected')==='true');
+  const n = e.key==='ArrowRight' ? (i+1)%tabs.length : e.key==='ArrowLeft' ? (i-1+tabs.length)%tabs.length : -1;
+  if(n>=0){ openTab(tabs[n]); tabs[n].focus(); e.preventDefault(); }
+});
+
+/* ---------- Nav activa ---------- */
+const links = [...document.querySelectorAll('.nav a.link')];
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting) links.forEach(l => l.setAttribute('aria-current', l.getAttribute('href')==='#'+e.target.id ? 'true' : 'false'));
+}), {rootMargin:'-40% 0px -55% 0px'});
+['datos','olas','piezas','fuentes'].forEach(id => io.observe(document.getElementById(id)));
+
+/* ===== v2 ===== */
+// Gráfico de la nota: eje proporcional (0 a la barra máxima, 303,5 M)
+(function(){
+  const max = NOTA[0][2], ax = $('#axis-nota');
+  [[0,'0'],[100e6,'100 M'],[200e6,'200 M']].forEach(([v,l]) => {
+    const x = v/max*100;
+    ax.insertAdjacentHTML('beforeend', `<i style="left:${x}%"></i><span style="left:${x}%;${v===0?'transform:none':''}">${l}</span>`);
+  });
+  ax.insertAdjacentHTML('beforeend', `<i style="left:100%"></i><span style="left:100%;transform:translateX(-100%)">303,5 M (100%)</span>`);
+})();
+
+// Reproductores de Spotify: pega el ID de cada canción (la parte entre /track/ y ? en el enlace de Spotify)
+const SPOTIFY = { malvekes:'', hablamos:'', gataonly:'' };
+document.querySelectorAll('[data-player]').forEach(el => {
+  const id = SPOTIFY[el.dataset.player], d = el.dataset;
+  el.innerHTML = id
+    ? `<iframe title="Escuchar ${d.title} en Spotify" src="https://open.spotify.com/embed/track/${id}?utm_source=generator" height="80" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`
+    : `<div class="fallback"><div><b>${d.title}</b><br><span>${d.artists}</span></div><a class="btn ghost" href="https://open.spotify.com/search/${encodeURIComponent(d.q)}" target="_blank" rel="noopener">Escuchar en Spotify</a></div>`;
+});
+
+// Línea de tiempo resumen de las olas
+(function(){
+  const SEG = [
+    {yrs:[2022], label:'2022', title:'La ola regional y el mambo', art:['Cris MJ','Marcianeke','Simón La Letra'], c:'var(--c22)'},
+    {yrs:[2023,2024], label:'2023–2024', title:'La aceleración de TikTok', art:['Jere Klein'], c:'var(--c23)'},
+    {yrs:[2025,2026], label:'2025–2026', title:'Diversificación e influencers', art:['Katteyes','Kidd Voodoo'], c:'var(--c25)'}
+  ];
+  const tl = $('#tl'); const cols = [];
+  SEG.forEach(s => {
+    const rows = R.filter(r => s.yrs.includes(r.y)); cols.push(rows.length+'fr');
+    const chips = s.art.map(a => { const n = rows.filter(r => r.art.includes(a)).length; return `<li>${a}: ${n} ${n===1?'semana':'semanas'}</li>`; }).join('');
+    tl.insertAdjacentHTML('beforeend', `<div class="tl-seg" style="--tc:${s.c}"><div class="tl-bar"></div><h3>${s.title}</h3><div class="yr">${s.label} · ${rows.length} semanas en la base</div><ul>${chips}</ul></div>`);
+  });
+  tl.style.setProperty('--cols', cols.join(' '));
+})();
+
+// Contraste de la columna: radios que incumplen vs. reproducciones
+(function(){
+  const sq = Array.from({length:406}, (_,i) => `<span class="sq${i<164?' on':''}" style="--d:${i}"></span>`).join('');
+  const el = $('#contrast');
+  el.innerHTML = `
+    <div class="ct-l"><div class="ct-big">40,4%</div>
+      <p class="ct-txt">de las radios evaluadas en 2024 no cumplió la cuota de 20% de música nacional: 164 de 406.</p>
+      <div class="waffle" role="img" aria-label="406 radios, 164 destacadas">${sq}</div>
+      <p class="ct-src">Cada cuadrado es una radio evaluada. Fuente: SCD 2024, según la columna.</p></div>
+    <div class="ct-r"><div class="ct-big">755 M</div>
+      <p class="ct-txt">de reproducciones en Spotify de "Una noche en Medellín", una canción que salió en 2022.</p>
+      <p class="ct-src">Cifra tal como la cita la columna. Además, "Gata only" estuvo entre las cinco canciones más escuchadas del planeta en 2024.</p></div>
+    <p class="ct-note">Son magnitudes distintas (emisoras evaluadas y reproducciones), por eso se muestran lado a lado y no como una proporción.</p>`;
+  new IntersectionObserver((es,o) => es.forEach(e => { if(e.isIntersecting){ el.classList.add('go'); o.disconnect(); } }), {threshold:.3}).observe(el);
+})();
+
+// Splash "La ola"
+(function(){
+  const sp = $('#splash'); let done = false; const t0 = performance.now();
+  function hide(){ if(done) return; done = true; sp.classList.add('out'); document.body.classList.add('ready'); setTimeout(() => { sp.style.display = 'none'; }, 1200); }
+  const go = () => setTimeout(hide, Math.max(0, 1900 - (performance.now()-t0)));
+  if(document.readyState === 'complete') go(); else addEventListener('load', go);
+  setTimeout(hide, 3500);
+})();
+</script>
+</body>
+</html>
